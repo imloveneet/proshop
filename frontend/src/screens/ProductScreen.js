@@ -20,7 +20,7 @@ const ProductScreen = ({ match }) => {
             setProduct(data)
         }
         fetchProduct()
-    }, [])
+    }, [match.params.id])
     return (
         <>
             <Link className='btn btn-light my-3' to='/'>
