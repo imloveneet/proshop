@@ -6,7 +6,8 @@ import {
   getUserProfile,
   getUsers,
   registerUser,
-  updateUserProfile
+  updateUserProfile,
+  deleteUser
 } from '../controllers/userController.js'
 
 router.route('/').post(registerUser).get(protect, admin, getUsers)
@@ -15,5 +16,6 @@ router
   .route('/profile')
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile)
+router.route('/:id').delete(protect, admin, deleteUser)
 
 export default router
