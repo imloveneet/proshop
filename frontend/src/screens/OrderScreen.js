@@ -16,8 +16,7 @@ import {
   ORDER_DELIVER_RESET
 } from '../constants/orderConstants'
 
-
-const OrderScreen = ({history}) => {
+const OrderScreen = ({ history }) => {
   const [sdkReady, setSdkReady] = useState(false)
   const dispatch = useDispatch()
   const { id: orderId } = useParams()
@@ -46,7 +45,7 @@ const OrderScreen = ({history}) => {
   }
 
   useEffect(() => {
-    if(!userInfo){
+    if (!userInfo) {
       history.pushState('/login')
     }
     const addPayPalScript = async () => {
@@ -73,7 +72,7 @@ const OrderScreen = ({history}) => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, orderId, order, successPay, successDeliver])
+  }, [dispatch, orderId, order, successPay, successDeliver, userInfo, history])
 
   const successPaymentHandler = paymentResult => {
     console.log(paymentResult)
@@ -110,7 +109,9 @@ const OrderScreen = ({history}) => {
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
-                <Message variant='success'>Delivered on {order.deliveredAt}</Message>
+                <Message variant='success'>
+                  Delivered on {order.deliveredAt}
+                </Message>
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
               )}
@@ -205,17 +206,20 @@ const OrderScreen = ({history}) => {
                 </ListGroup.Item>
               )}
               {loadingDeliver && <Loader />}
-              {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
-                <ListGroup.Item>
-                  <Button
-                    type='button'
-                    className='btn btn-block'
-                    onClick={deliverHandler}
-                  >
-                    Mark As deliered
-                  </Button>
-                </ListGroup.Item>
-              )}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item>
+                    <Button
+                      type='button'
+                      className='btn btn-block'
+                      onClick={deliverHandler}
+                    >
+                      Mark As deliered
+                    </Button>
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>
