@@ -85,7 +85,6 @@ const ProductListScreen = ({ match }) => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <>
         <Table striped bordered hover responsive className='table-sm'>
           <thead>
             <tr>
@@ -124,10 +123,9 @@ const ProductListScreen = ({ match }) => {
                 </tr>
               ))}
           </tbody>
-        </Table>
-        <Paginate pages={pages} page={page} isAdmin={true} />
-        </>
+        </Table>        
       )}
+      <Paginate pages={pages} page={page} isAdmin={true} />
     </>
   )
 }
